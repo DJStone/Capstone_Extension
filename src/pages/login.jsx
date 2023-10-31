@@ -1,0 +1,12 @@
+fetch('https://fakestoreapi.com/users',{
+            method:"POST",
+            body:JSON.stringify(
+                {
+                    email:'John@gmail.com',
+                    username:'johnd',
+                    password:'m38rmF$',
+                }
+            )
+        })
+            .then(res=>res.json())
+            .then(json=>console.log(json))
