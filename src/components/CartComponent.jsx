@@ -1,9 +1,10 @@
 import PropTypes from 'prop-types'
-import { useContext } from'react'
+import { useContext, useState} from'react'
 import { CartContext } from '../context/cart.jsx'
 
 export default function Cart ({showModal, toggle}) {
 
+  const [isCheckout, setIsCheckout] = useState(false)
   const { cartItems, addToCart, removeFromCart, clearCart, getCartTotal } = useContext(CartContext)
 
 
@@ -14,7 +15,7 @@ export default function Cart ({showModal, toggle}) {
         <div className="absolute right-16 top-10">
           <button
             className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
-            onClick={toggle}
+            onClick={()=>{toggle();setIsCheckout(prev=>!prev)}}
           >
             Close
           </button>
@@ -26,7 +27,7 @@ export default function Cart ({showModal, toggle}) {
                 <img src={item.image} alt={item.title} className="rounded-md h-24" />
                 <div className="flex flex-col">
                   <h1 className="text-lg font-bold">{item.title}</h1>
-                  <p className="text-gray-600">{item.price}</p>
+                  <p className="text-gray-600">{item.price.toFixed(2)}</p>
                 </div>
               </div>
               <div className="flex gap-4">
@@ -54,7 +55,7 @@ export default function Cart ({showModal, toggle}) {
         {
           cartItems.length > 0 ? (
             <div className="flex flex-col justify-between items-center">
-          <h1 className="text-lg font-bold">Total: ${getCartTotal()}</h1>
+          <h1 className="text-lg font-bold">Total: ${getCartTotal().toFixed(2)}</h1>
           <button
             className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
             onClick={() => {
@@ -63,9 +64,18 @@ export default function Cart ({showModal, toggle}) {
           >
             Clear cart
           </button>
+          <button
+            className="px-4 py-2 bg-gray-800 text-white text-xs font-bold uppercase rounded hover:bg-gray-700 focus:outline-none focus:bg-gray-700"
+            onClick={() => {
+              setIsCheckout(prev=>!prev)
+              clearCart()
+            }}
+          >
+            Checkout
+          </button>
         </div>
           ) : (
-            <h1 className="text-lg font-bold">Your Cart is Empty</h1>
+            <h1 className="text-lg font-bold">{isCheckout? 'Thanks for your purchase!':'Your Cart is Empty'}</h1>
           )
         }
       </div>

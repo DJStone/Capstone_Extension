@@ -8,11 +8,12 @@ const [email, setEmail]= useState("")
 
 async function logUser(){
 
-
-
 try {
-    const result = fetch('https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/users/login',{
+    const result = await fetch('https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/users/login',{
         method:'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body:JSON.stringify({
            user: {
             username: email,
@@ -20,13 +21,12 @@ try {
           }
         })
     })
-    const response = result.json()
+    const response = await result.json()
       console.log(response)
-        if (response.sucess){ 
+        if (response.success){ 
         alert("Successful Login")}
 
 } catch (error) {
-    
 }
 
 }
