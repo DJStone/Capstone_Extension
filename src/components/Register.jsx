@@ -47,7 +47,12 @@ return (
           placeholder="Password"
         />
         <div className="text-center md:text-left">
-          <button>
+          <button
+            className="mt-4 bg-blue-600 hover:bg-blue-700 px-4 py-2 text-white uppercase rounded text-xs tracking-wider"
+            type="user"
+            onClick={(u)=>{createUser(u.target.value)}}
+            placeholder="Username"
+          >
             Register
           </button>
         </div>
