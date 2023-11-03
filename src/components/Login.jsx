@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "react-router-dom"
 
 export default function Login (){
 
@@ -10,15 +11,19 @@ async function logUser(){
 
 
 try {
-    const result = fetch('https://fakestoreapi.com/auth/login',{
+    const result = fetch('https://strangers-things.herokuapp.com/api/2302-ACC-PT-WEB-PT-C/users/login',{
         method:'POST',
         body:JSON.stringify({
-            username: "mor_2314",
-            password: "83r5^_"
+           user: {
+            username: email,
+            password: password,
+          }
         })
     })
     const response = result.json()
-        alert("Success")
+      console.log(response)
+        if (response.sucess){ 
+        alert("Successful Login")}
 
 } catch (error) {
     
@@ -52,12 +57,12 @@ return (
         </div>
         <div className="mt-4 font-semibold text-sm text-slate-500 text-center md:text-left">
           Don&apos;t have an account?{" "}
-          <a
+          <Link
             className="text-red-600 hover:underline hover:underline-offset-4"
-            href="#"
+            to="/register"
           >
             Register
-          </a>
+          </Link>
         </div>
       </div>
     </section>
